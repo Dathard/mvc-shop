@@ -1,7 +1,7 @@
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="/template/js/functions.js"></script>
 <script>
-	$("select").change(function() {
+	$("select#sorting").change(function() {
 		var option = $(this).find('option:selected');
 		window.location.href = option.data("url");
 	});

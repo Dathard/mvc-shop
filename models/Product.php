@@ -1,10 +1,26 @@
 <?php 
 
-
 class Product
 {
 	const SHOW_BY_DEFAULT = 9;
-	
+
+
+	public static function newProduct($data, $pictureName)
+	{
+		$name = htmlspecialchars($data['name']);
+		$category = $data['category'];
+		$code = htmlspecialchars($data['code']);
+		$price = (int) filter_var($data['price'], FILTER_SANITIZE_NUMBER_INT);
+		$description = htmlspecialchars($data['description']);
+
+		$db = Db::getConnection();
+
+		$sql = "INSERT INTO `product` (`name`, `category_id`, `code`, `price`, `image`, `description`) 
+		VALUES ('$name', '$category', '$code', '$price', '$pictureName', '$description');";
+		$db->query($sql);
+
+		echo true;
+	}
 
 	/**
 	 * Return the product parameter array
