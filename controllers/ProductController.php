@@ -46,6 +46,16 @@ class ProductController
 
 		return true;
 	}
+
+	public function actionDelete()
+	{
+		$productParameters = array();
+		$productParameters = Product::getProductParameters($_POST['id']);
+
+		Product::deleteProduct($productParameters, $_POST['id']);
+
+		return true;
+	}
 	
 	public function actionView($productId)
 	{

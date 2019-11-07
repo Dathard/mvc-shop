@@ -7,6 +7,7 @@ return array(
 
 	'new-product' => 'product/new',
 	'edit-product' => 'product/edit',
+	'delete-product' => 'product/delete',
 
 	'search' => 'product/search',
 

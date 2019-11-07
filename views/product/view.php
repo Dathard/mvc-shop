@@ -30,7 +30,7 @@
                     <?php echo $productParameters['price']; ?>₴
                 </p>
                 <button class="edit-product" onclick="$('.new-product-wrapper').addClass('active');">Змінити товар</button>
-                <button class="remove-product">Видалити товар</button>
+                <button class="remove-product" onclick="$('.delete-product-wrapper').addClass('active');">Видалити товар</button>
             </div>
         </div>
         <p class="description">
@@ -41,5 +41,7 @@
 </div>
 
 <?php include ROOT.'/views/product/edit-product.php'; ?>
+
+<?php include ROOT.'/views/product/delete-product.php'; ?>
 
 <?php include ROOT.'/views/layouts/footer.php'; ?>

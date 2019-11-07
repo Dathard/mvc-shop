@@ -469,7 +469,7 @@ input
     width: 100%;
     height: 100vh;
 
-    background: #0009c;
+    background: #00000096;
 }
 .new-product-wrapper.active
 {
@@ -540,7 +540,7 @@ input
 }
 .new-product form p
 {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
 
     overflow-x: hidden;
@@ -711,6 +711,134 @@ input
         touch-action: manipulation;
 }
 .new-product button:hover
+{
+    opacity: .9;
+}
+
+
+
+
+
+.delete-product-wrapper
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: none;
+
+    width: 100%;
+    height: 100vh;
+
+    background: #00000096;
+}
+.delete-product-wrapper.active
+{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.delete-product
+{
+    overflow-y: auto;
+
+    width: 350px;
+    max-height: 90%;
+    margin: auto;
+
+    background: #fff;
+}
+.delete-product h2
+{
+    font-size: 16px;
+    font-weight: 500;
+
+    position: relative;
+
+    margin-top: 0;
+    padding: 20px 25px;
+
+    text-transform: uppercase;
+
+    color: #313131;
+}
+.delete-product h2 span
+{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+
+    cursor: pointer;
+}
+.delete-product form
+{
+    margin-top: -10px;
+    padding: 0 25px 20px;
+
+    text-align: center;
+}
+.delete-product form p
+{
+    font-size: 1rem;
+    font-weight: 500;
+
+    padding-top: 10px;
+
+    text-transform: inherit;
+
+    color: #313131;
+}
+.delete-product .buttons
+{
+    display: -moz-flex;
+    display:  -ms-flex;
+    display:   -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display:      flex;
+
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+.delete-product .buttons button,
+.delete-product .buttons span
+{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.42857143;
+
+    display: block;
+
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 126px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    padding: 6px 12px;
+
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    color: #fff;
+    border-radius: 4px;
+    background: #01b14e;
+    background-image: none;
+
+    -ms-touch-action: manipulation;
+        touch-action: manipulation;
+}
+.delete-product .buttons button
+{
+    background: #f56060;
+}
+.delete-product .buttons button:hover,
+.delete-product .buttons span:hover
 {
     opacity: .9;
 }

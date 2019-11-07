@@ -23,15 +23,15 @@ $(window).on('load', function () {
                 if ( data != true ){
                     alert(data);
                 }else{
-                    
-                    alert("Дані успішно збережено!");
-
                     if ( formId == "new-product" || formId == "edit-product" ) {
+                        alert("Дані успішно збережено!");
                         location.reload();
+                    }else if(formId == "delete-product"){
+                        window.location.replace("/");
                     }else{
+                        alert("Дані успішно збережено!");
                         $(".new-product-wrapper").removeClass("active");
                     }
-
                 }
             }
         });

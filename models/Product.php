@@ -9,11 +9,14 @@ class Product
 	 */
 	public static function newProduct($data, $pictureName)
 	{
-		$name = htmlspecialchars($data['name']);
+
+
+
+		$name = addslashes(htmlspecialchars($data['name'])); 
 		$category = $data['category'];
-		$code = htmlspecialchars($data['code']);
+		$code = addslashes( htmlspecialchars($data['code']) );
 		$price = (int) filter_var($data['price'], FILTER_SANITIZE_NUMBER_INT);
-		$description = htmlspecialchars($data['description']);
+		$description = addslashes( htmlspecialchars($data['description']) ); 
 
 		$db = Db::getConnection();
 
@@ -30,11 +33,11 @@ class Product
 	public static function editProduct($productParameters, $newData, $pictureName = false)
 	{
 		$newData = array(
-			'name' => htmlspecialchars($newData['name']),
+			'name' => addslashes( htmlspecialchars($newData['name']) ),
 			'category_id' => $newData['category'],
-			'code' => htmlspecialchars($newData['code']),
+			'code' => addslashes( htmlspecialchars($newData['code']) ),
 			'price' => (int) filter_var($newData['price'], FILTER_SANITIZE_NUMBER_INT),
-			'description' => htmlspecialchars($newData['description'])
+			'description' => addslashes( htmlspecialchars($newData['description']) )
 
 		);
 
@@ -57,6 +60,22 @@ class Product
 		echo true;
 	}
 
+	public static function deleteProduct($productParameters, $productId = false)
+	{
+		if ($productId) {
+			$db = Db::getConnection();
+
+			$sql = "DELETE FROM product WHERE id = '$productId'";
+			$db->query($sql);
+
+			$filename = 'template/images/product/'.$productParameters['image'];
+
+			if (file_exists($filename)) 
+				unlink($filename);
+
+			echo true;
+		}
+	}
 
 	/**
 	 * Return the product parameter array
