@@ -6,6 +6,7 @@ return array(
 	//'category/([0-9]+)/page=([0-9]+)'	=>	'catalog/category/$1/$2',
 
 	'new-product' => 'product/new',
+	'edit-product' => 'product/edit',
 
 	'search' => 'product/search',
 

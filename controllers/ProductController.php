@@ -22,6 +22,30 @@ class ProductController
 
 		return true;
 	}
+
+	public function actionEdit()
+	{
+		$status = true;
+
+		if( !(!isset($_FILES['file']) || $_FILES['file']['error'] == UPLOAD_ERR_NO_FILE) ) {
+			$status = File::fileVerification($_FILES['file']);
+
+			if (!$status) 
+				return true;
+
+			$pictureName = File::uploadFile($_FILES['file'], 2);
+		}
+
+		$productParameters = array();
+		$productParameters = Product::getProductParameters($_POST['id']);
+
+		if ( isset($pictureName) ) 
+			Product::editProduct($productParameters, $_POST, $pictureName);	
+		else
+			Product::editProduct($productParameters, $_POST);
+
+		return true;
+	}
 	
 	public function actionView($productId)
 	{

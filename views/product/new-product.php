@@ -3,7 +3,7 @@
         <h2>Новий товар 
             <span title="Закрити" onclick="$('.new-product-wrapper').removeClass('active');">Х</span>
         </h2>
-        <form action="/new-product" method="post" enctype="multipart/form-data">
+        <form id="new-product" action="/new-product" method="post" enctype="multipart/form-data">
             <div class="wrapper">
                 <div class="picture">
                     <div class="input-file-wrapper">
@@ -45,32 +45,3 @@
         </form>
     </div>
 </div>
-
-
-<script>
-    $(window).on('load', function () {
-        $(".new-product form").on("submit",(function(e) {
-            e.preventDefault();
-
-            var formData = new FormData(this);
-
-            $.ajax({
-                type:"POST",
-                url: "/new-product",
-                data: formData,
-                cache:false,
-                contentType: false,
-                processData: false,
-                success:function(data){
-                    if ( data != true ){
-                        alert(data);
-                    }else{
-                        $('.new-product-wrapper').removeClass('active');
-                        alert('Товар успішно додано.');
-                    }
-
-                }
-            });
-        }));
-    });
-</script>

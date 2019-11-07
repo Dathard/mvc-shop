@@ -4,7 +4,9 @@ class Product
 {
 	const SHOW_BY_DEFAULT = 9;
 
-
+	/**
+	 * Adds a new product
+	 */
 	public static function newProduct($data, $pictureName)
 	{
 		$name = htmlspecialchars($data['name']);
@@ -21,6 +23,40 @@ class Product
 
 		echo true;
 	}
+
+	/**
+	 * Сhanges product information
+	 */
+	public static function editProduct($productParameters, $newData, $pictureName = false)
+	{
+		$newData = array(
+			'name' => htmlspecialchars($newData['name']),
+			'category_id' => $newData['category'],
+			'code' => htmlspecialchars($newData['code']),
+			'price' => (int) filter_var($newData['price'], FILTER_SANITIZE_NUMBER_INT),
+			'description' => htmlspecialchars($newData['description'])
+
+		);
+
+		if ($pictureName) {
+			$filename = 'template/images/product/'.$productParameters['image'];
+
+			if (file_exists($filename)) 
+				unlink($filename);
+			
+			$newData['image'] = $pictureName;
+		}
+		
+		$db = Db::getConnection();
+
+		foreach( $newData as $key => $value ){
+			$sql = "UPDATE product SET $key = '".$value."' WHERE id = '".$productParameters['id'] ."'";
+			$db->query($sql);
+		}
+
+		echo true;
+	}
+
 
 	/**
 	 * Return the product parameter array

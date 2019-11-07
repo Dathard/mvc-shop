@@ -29,10 +29,8 @@
                     <span>Ціна:</span> 
                     <?php echo $productParameters['price']; ?>₴
                 </p>
-                <button>
-                    <img src="/template/images/cart-white.png" alt="">
-                    <span>Купити</span>
-                </button>
+                <button class="edit-product" onclick="$('.new-product-wrapper').addClass('active');">Змінити товар</button>
+                <button class="remove-product">Видалити товар</button>
             </div>
         </div>
         <p class="description">
@@ -41,5 +39,7 @@
         </p>
     </div>
 </div>
+
+<?php include ROOT.'/views/product/edit-product.php'; ?>
 
 <?php include ROOT.'/views/layouts/footer.php'; ?>
