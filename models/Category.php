@@ -2,6 +2,22 @@
 
 class Category
 {
+
+	/**
+	 * 
+	 */
+	public static function checkCategory($categoryId)
+	{
+		$db = Db::getConnection();
+
+		$sql = "SELECT * FROM category WHERE id = $categoryId";
+		$result = $db->query($sql);
+
+		if ($result->num_rows > 0) 
+			return true;
+		else
+			return false;
+	}
 	
 	/**
 	 * Returns as array of categories

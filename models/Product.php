@@ -9,9 +9,6 @@ class Product
 	 */
 	public static function newProduct($data, $pictureName)
 	{
-
-
-
 		$name = addslashes(htmlspecialchars($data['name'])); 
 		$category = $data['category'];
 		$code = addslashes( htmlspecialchars($data['code']) );

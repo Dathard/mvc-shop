@@ -65,6 +65,11 @@ class ProductController
 		$productParameters = array();
 		$productParameters = Product::getProductParameters($productId);
 
+		if ( count( $productParameters ) == 0 ) {
+			
+			return 404;
+		}
+
 		require_once(ROOT.'/views/product/view.php');
 
 		return true;

@@ -57,9 +57,23 @@ class Router
 
 				// Створити об'єкт, викликати метод
 				$controllerObject = new $controllerName;
-				$result = call_user_func_array(array($controllerObject, $actionName), $parameters);
-				if ($result != null) {
-					break;
+
+				if ( method_exists($controllerObject, $actionName) ) {
+					$result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+
+					if ( $result === 404 ) {
+						$controllerFile = ROOT . '/controllers/ErrorController.php';
+						include_once($controllerFile);
+
+						ErrorController::actionNotFound();
+					}
+
+					if ($result != null) {
+						break;
+					}
+				}else{
+					$controllerFile = ROOT . '/controllers/ErrorController.php';
+					include_once($controllerFile);
 				}
 
 			}

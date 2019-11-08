@@ -18,6 +18,10 @@ class CatalogController
 
 	public function actionCategory($categoryId = false, $sort = false)
 	{
+		if ( $categoryId == false || !Category::checkCategory($categoryId)) {
+			return 404;
+		}
+
 		$categories = array();
 		$categories = Category::getCategoriesList();
 
