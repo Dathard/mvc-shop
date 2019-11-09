@@ -25,19 +25,9 @@ class File
 		return true;
 	}
 
-	// Функція зміни розміру зображення
-	// Міняє розмір зображення в залежності від type:
-	//	type = 1 - ескіз
-	// 	type = 2 - Велике зображення
-	public static function uploadFile($file, $type = 1, $rotate = null, $quality = null)
+
+	public static function uploadFile($file)
 	{
-		// обмеження по ширині в пікселях
-		$max_thumb_size = 200;
-		$max_size = 600;
-
-		if ($quality == null)
-			$quality = 75;
-
 		if ($file['type'] == 'image/jpeg')
 			$source = imagecreatefromjpeg($file['tmp_name']);
 		elseif ($file['type'] == 'image/png')
@@ -47,49 +37,15 @@ class File
 		else
 			return false;
 
-		if ($rotate != null)
-			$src = imagerotate($source, $rotate, 0);
-		else
-			$src = $source;
 
-		$w_src = imagesx($src); 
-		$h_src = imagesy($src);
-
-		// в залежності від типу (эскіз / велике зображення) встановлюємо обмеження по ширині.
-		if ($type == 1)
-			$w = $max_thumb_size;
-		elseif ($type == 2)
-			$w = $max_size;
-
-		$dest = imagecreatetruecolor($w, $w);
-
-		// вирізаем квадратну середину по x, якщо фото горизонтальне
-		if ($w_src > $h_src)
-			imagecopyresampled($dest, $src, 0, 0, round((max($w_src, $h_src) - min($w_src, $h_src))/2), 0, $w, $w, min($w_src, $h_src), min($w_src, $h_src));
-		// вирізаем квадратну середину по y, якщо фото горизонтальне
-		elseif ($w_src < $h_src)
-			imagecopyresampled($dest, $src, 0, 0, 0, round((max($w_src, $h_src) - min($w_src, $h_src))/2), $w, $w, min($w_src, $h_src), min($w_src, $h_src));
-		// маштабування фото без вирізок
-		elseif ($w_src == $h_src)
-			imagecopyresampled($dest, $src, 0, 0, 0, 0, $w, $w, $w_src, $w_src);
-
-		imagejpeg($dest, self::TMP_PATH . $file['name'], $quality);
-		imagedestroy($dest);
-		imagedestroy($src);
+		$new_name = rand(10000000000, 99999999999);
+		$format = explode(".", $file['name']);
+		$format = end($format);
+		$new_name .= '.' . $format;
 
 
-
-		if (!@copy(self::TMP_PATH . $file['name'], self::PATH . $file['name']))
-		{
-			echo 'Щось пішло не так.';
-			return false;
-		}else{
-			$new_name = rand(10000000000, 99999999999);
-			$new_namesds = explode(".", $file['name']);
-			$new_name .= '.' . end($new_namesds);
-			rename(self::PATH.$file['name'], self::PATH.$new_name);
-
-			unlink(self::TMP_PATH . $file['name']);
+		if (!move_uploaded_file($file['tmp_name'], self::PATH . $new_name)) {
+			die('При записи изображения на диск произошла ошибка.');
 		}
 
 		return $new_name;

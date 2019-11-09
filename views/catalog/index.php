@@ -33,6 +33,9 @@
 			</li>
 		<?php endforeach ?>
 	</ul>
+
+	<?php echo $pagination->get(); ?>
+
 </div>
 
 <?php include ROOT.'/views/product/new-product.php' ?>

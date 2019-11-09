@@ -75,6 +75,36 @@ class Product
 	}
 
 	/**
+	 * Returns the number of products
+	 */
+	public static function getTotalProducts()
+	{
+		$db = Db::getConnection();
+
+		$sql = 'SELECT COUNT(*) FROM product';
+		$result = $db->query($sql);
+
+		$result = $result->fetch_assoc();
+
+		return $result['COUNT(*)'];
+	}
+
+	/**
+	 * Returns the number of products from a category
+	 */
+	public static function getTotalProductsInCategory($categoryId)
+	{
+		$db = Db::getConnection();
+
+		$sql = "SELECT COUNT(*) FROM product WHERE category_id = $categoryId";
+		$result = $db->query($sql);
+
+		$result = $result->fetch_assoc();
+
+		return $result['COUNT(*)'];
+	}
+
+	/**
 	 * Return the product parameter array
 	 */
 	public static function getProductParameters($productId = false)
@@ -94,7 +124,7 @@ class Product
 	/**
 	 * Return an array of products
 	 */
-	public static function getProducts($count = self::SHOW_BY_DEFAULT, $sort = 'novelty')
+	public static function getProducts($count = self::SHOW_BY_DEFAULT, $sort = 'novelty', $page = 1)
 	{
 		$count = intval($count);
 
@@ -116,11 +146,13 @@ class Product
 			break;
 		}
 
+		$offset = ($page - 1) * $count;
+
 		$productList = array();
 
 		$db = Db::getConnection();
 
-		$sql = "SELECT id, name, price, image FROM product ORDER BY $sortingProducts LIMIT $count";
+		$sql = "SELECT id, name, price, image FROM product ORDER BY $sortingProducts LIMIT $count OFFSET $offset";
 		$result = $db->query($sql);
 
 		while( $row = $result->fetch_assoc() ){
@@ -138,7 +170,7 @@ class Product
 	/**
 	 * Return the category product array
 	*/
-	public static function getProductListByCategory($categoryId = false, $sort = 'novelty')
+	public static function getProductListByCategory($categoryId = false, $sort = 'novelty', $page = 1)
 	{
 		if ( $categoryId ) {
 			$categoryId = intval($categoryId);
@@ -161,11 +193,13 @@ class Product
 				break;
 			}
 
+			$offset = ($page - 1) * self::SHOW_BY_DEFAULT;
+
 			$db = Db::getConnection();
 
 			$productList = array();
 
-			$sql = "SELECT id, name, price, image FROM product WHERE category_id = $categoryId ORDER BY $sortingProducts LIMIT " . self::SHOW_BY_DEFAULT;
+			$sql = "SELECT id, name, price, image FROM product WHERE category_id = $categoryId ORDER BY $sortingProducts LIMIT " . self::SHOW_BY_DEFAULT . " OFFSET $offset";
 			$result = $db->query($sql);
 
 			while ( $row = $result->fetch_assoc() ) {

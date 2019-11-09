@@ -15,7 +15,7 @@
         </div>
         <div class="wrapper-actions">
             <div class="search">
-                <form action="/search" method="post">
+                <form id="search" action="/search" method="post">
                     <input type="text" name="condition" placeholder="Я шукаю..." <?php echo ( isset($condition) ? "value='$condition'" : "" ); ?>>
                     <button><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>

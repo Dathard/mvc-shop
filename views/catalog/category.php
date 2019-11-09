@@ -4,7 +4,7 @@
 
 <div class="content">
 	<div class="content-header">
-		<select class="select">
+		<select id="sorting" class="select">
 			<option data-url="<?php echo ($sort ? '' : $categoryId.'/'); ?>sort=novelty"
 				<?php if ($sort == 'novelty') echo 'selected'; ?> >
 				Новинки
@@ -37,6 +37,9 @@
 			</li>
 		<?php endforeach ?>
 	</ul>
+	
+	<?php echo $pagination->get(); ?>
+
 </div>
 
 <?php include ROOT.'/views/product/new-product.php' ?>
